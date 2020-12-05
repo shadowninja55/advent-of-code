@@ -1,41 +1,28 @@
 import sequtils
-import math
 
-func getSeatPos(pass: string): (int, int) =
-    let row = block:
-        var (lower, upper) = (0, 127)
+func locate(bounds: Slice[int], pass: string, letter: char): int =
+    result = bounds.a
+    var upper = bounds.b
 
-        for i in 0..6:
-            if pass[i] == 'F':
-                upper -= ceil((upper - lower) / 2).int
-            else:
-                lower += ceil((upper - lower) / 2).int
-        
-        lower
-    
-    let col = block:
-        var (lower, upper) = (0, 7)
-
-        for i in 7..9:
-            if pass[i] == 'L':
-                upper -= ceil((upper - lower) / 2).int
-            else:
-                lower += ceil((upper - lower) / 2).int
-        
-        lower
-
-    (row, col)
+    for c in pass:
+        let mid = (upper - result) div 2
+        if c == letter:
+            upper -= mid
+        else:
+            result += mid
 
 func solvePartOne(passes: seq[string]): int =
     for pass in passes:
-        let (row, col) = pass.getSeatPos()
+        let row = locate(0..128, pass[0..6], 'F')
+        let col = locate(0..8, pass[7..9], 'L')
         result = max(result, row * 8 + col)
     
 func solvePartTwo(passes: seq[string]): int =
     var seats: array[128, array[8, int]]
 
     for pass in passes:
-        let (row, col) = pass.getSeatPos()
+        let row = locate(0..128, pass[0..6], 'F')
+        let col = locate(0..8, pass[7..9], 'L')
         seats[row][col] = row * 8 + col
     
     var valid = false
