@@ -41,7 +41,7 @@ proc solvePartTwo(): int =
                                 amount: int
                                 unit: string
 
-                            if value.scanf("$i$*", amount, unit):
+                            if value.scanf("$i$w$.", amount, unit):
                                 if unit == "cm":
                                     if amount notin 150..193:
                                         break validField
