@@ -1,26 +1,25 @@
+import strscans
 import strutils
-import sets
-import sequtils
 
-func solvePartOne(nums: seq[int], target: int): int =
-    var seen = initHashSet[int]()
+proc solvePartOne(): int =
+    for line in lines("input.txt"):
+        var 
+            lower, upper: int
+            letter, password: string
 
-    for num in nums:
-        if (target - num) in seen:
-            return num * (target - num)
-        
-        seen.incl(num)
+        if line.scanf("$i-$i $w: $w", lower, upper, letter, password):
+            if password.count(letter[0]) in lower..upper:
+                inc result
 
-func solvePartTwo(nums: seq[int], target: int): int =
-    for i in nums:
-        let j = solvePartOne(nums, target - i)
+proc solvePartTwo(): int =
+    for line in lines("input.txt"):
+        var
+            first, second: int
+            letter, password: string
 
-        if j > 0: 
-            return i * j
+        if line.scanf("$i-$i $w: $w", first, second, letter, password):
+            if (password[first - 1] == letter[0]) xor (password[second - 1] == letter[0]):
+                inc result
 
-proc main() =
-    let nums = toSeq(lines("input.txt")).map(parseInt)
-    echo solvePartOne(nums, 2020)
-    echo solvePartTwo(nums, 2020)
-
-main()
+echo solvePartOne()
+echo solvePartTwo()
