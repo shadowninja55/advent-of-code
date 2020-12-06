@@ -1,13 +1,10 @@
 import sequtils
 import sets
 import strutils
-import re
 
 func solvePartOne(groups: seq[string]): int =
     for group in groups:
-        let matches = group.findAll(re"[a-z]")
-        let answered = matches.mapIt(it[0]).toHashSet()
-        result += answered.len
+        result += group.filter(isLowerAscii).toHashSet().len
 
 func solvePartTwo(groups: seq[string]): int =
     for group in groups:
