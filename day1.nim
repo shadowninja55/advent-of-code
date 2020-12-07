@@ -1,9 +1,9 @@
 import strutils
-import sets
+import intsets
 import sequtils
 
 proc solvePartOne(nums: seq[int], target: int): int =
-    var seen = initHashSet[int]()
+    var seen = initIntSet()
 
     for num in nums:
         if (target - num) in seen:
