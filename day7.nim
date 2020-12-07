@@ -1,5 +1,4 @@
 import sequtils
-import deques
 import tables
 import strutils
 import sets
@@ -11,17 +10,15 @@ proc makeRuleMap(rules: string): RuleMap =
     var children: seq[(string, int)]
 
     let parser = peg("rules", ruleMap: RuleMap):
-        rules <- +rule
+        rules <- *rule
         rule <- >color * " bags contain " * children * "\n":
             ruleMap[$1] = children
-            children = @[]
+            children.setLen(0)
 
         color <- +Alpha * " " * +Alpha
         children <- "no other bags." | (child * *(", " * child) * ".")
-        child <- >amount * " " * >color * (" bags" | " bag"):
+        child <- >Digit * " " * >color * (" bags" | " bag"):
             children.add(($2, parseInt($1)))
-        
-        amount <- Digit
     
     assert parser.match(rules, result).ok
 
