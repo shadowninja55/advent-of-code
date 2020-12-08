@@ -1,6 +1,7 @@
 import sequtils
 import strutils
 import intsets
+import tables
 
 proc interpret(instructions: seq[string]): (int, bool) =
     var cursor = 0
@@ -29,28 +30,25 @@ proc interpret(instructions: seq[string]): (int, bool) =
         
         inc cursor
 
-proc solvePartOne(instructions: seq[string]): int =
+func solvePartOne(instructions: seq[string]): int =
     interpret(instructions)[0]
 
-proc solvePartTwo(instructions: seq[string]): int =
+func solvePartTwo(instructions: seq[string]): int =
+    const cmdSwap = {"acc": "", "nop": "jmp", "jmp": "nop"}.toTable()
+
     for cursor, line in instructions:
-        let (cmd, num) = (line[0..2], line[4..^1])
+        var (cmd, num) = (line[0..2], line[4..^1])
+        cmd = cmdSwap[cmd]
 
-        if cmd == "nop":
-            var edited = instructions
-            edited[cursor] = "jmp " & num
+        if cmd == "":
+            continue
+        
+        var edited = instructions
+        edited[cursor] = cmd & num
 
-            let (acc, err) = interpret(edited)
-            if not err:
-                return acc
-
-        elif cmd == "jmp":
-            var edited = instructions
-            edited[cursor] = "nop " & num
-
-            let (acc, err) = interpret(edited)
-            if not err:
-                return acc
+        let (acc, err) = interpret(edited)
+        if not err:
+            return acc
 
 let instructions = toSeq(lines("input.txt"))
 echo solvePartOne(instructions)
