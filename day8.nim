@@ -3,7 +3,7 @@ import strutils
 import intsets
 import tables
 
-proc interpret(instructions: seq[string]): (int, bool) =
+func interpret(instructions: seq[string]): (int, bool) =
     var cursor = 0
     var executed = initIntSet()
 
