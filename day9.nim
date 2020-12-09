@@ -22,12 +22,19 @@ proc solvePartOne(nums: seq[int]): int =
         window.addLast target
 
 proc solvePartTwo(nums: seq[int], target: int): int =
-    for i in 0..nums.high:
-        for j in i..nums.high:
-            let window = nums[i..j]
+    var (sum, start) = (nums[0], 0)
 
-            if window.sum == target:
-                return window.min + window.max
+    for i in 1..nums.len:
+        while sum > target and start < i - 1:
+            sum -= nums[start]
+            inc start
+
+        if sum == target:
+            let window = nums[start..(i - 1)]
+            return window.min + window.max
+
+        if i < nums.len:
+            sum += nums[i]
 
 let nums = toSeq(lines("input.txt")).map(parseInt)
 echo solvePartOne nums
