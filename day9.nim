@@ -1,17 +1,16 @@
 import intsets, sequtils, strutils
 
-proc twoSum(nums: IntSet, target: int): bool =
-    for num in nums:
-        if (target - num) in nums:
-            return true
-
 proc solvePartOne(nums: seq[int]): int =
     var window = toIntSet nums[0..24]
 
     for i in 25..nums.high:
         let target = nums[i]
 
-        if not window.twoSum target:
+        block twoSum:
+            for num in window:
+                if (target - num) in window:
+                    break twoSum
+
             return target
 
         window.excl nums[i - 25]
