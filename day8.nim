@@ -1,7 +1,4 @@
-import sequtils
-import strutils
-import intsets
-import tables
+import intsets, sequtils, strutils, tables
 
 func interpret(instructions: seq[string]): (int, bool) =
     var cursor = 0
@@ -27,7 +24,7 @@ func interpret(instructions: seq[string]): (int, bool) =
                 discard
             else:
                 discard
-        
+
         inc cursor
 
 func solvePartOne(instructions: seq[string]): int =
@@ -42,7 +39,7 @@ func solvePartTwo(instructions: seq[string]): int =
 
         if cmd == "":
             continue
-        
+
         var edited = instructions
         edited[cursor] = cmd & num
 

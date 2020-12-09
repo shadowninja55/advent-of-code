@@ -1,6 +1,4 @@
-import sequtils
-import sugar
-import math
+import math, sequtils, sugar
 
 let grid = toSeq(lines("input.txt"))
 let (height, width) = (grid.len, grid[0].len)
@@ -9,9 +7,9 @@ proc solvePartOne(deltaX, deltaY: int): int =
     var x = 0
 
     for y in countup(0, height - 1, deltaY):
-        if grid[y][x] == '#': 
+        if grid[y][x] == '#':
             inc result
-            
+
         x += deltaX
         while x >= width:
             x -= width

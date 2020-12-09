@@ -1,10 +1,4 @@
-import strutils
-import re
-import sets
-import sequtils
-import tables
-import strscans
-import sugar
+import re, sequtils, sets, strscans, strutils, sugar, tables
 
 const entries = staticRead("input.txt").split("\n\n")
 const requiredKeys = toHashSet(["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid", "cid"])
@@ -17,18 +11,19 @@ proc solvePartOne(): int =
             inc result
 
 proc solvePartTwo(): int =
-    for entry in entries: 
+    for entry in entries:
         let fields = collect newTable:
             for rawField in entry.findAll(re"[a-z]{3}:[\w#]+"):
                 let field = rawField.split(":")
                 {field[0]: field[1]}
-        
-        if (toSeq(fields.keys()).toHashSet() == requiredKeys) or (fields.len == 7 and "cid" notin fields):
+
+        if (toSeq(fields.keys()).toHashSet() == requiredKeys) or (fields.len ==
+                7 and "cid" notin fields):
             block validField:
                 for key, value in fields:
                     case key:
                         of "byr":
-                            if parseInt(value) notin 1920..2002: 
+                            if parseInt(value) notin 1920..2002:
                                 break validField
                         of "iyr":
                             if parseInt(value) notin 2010..2020:
@@ -56,8 +51,9 @@ proc solvePartTwo(): int =
                             if not value.match(re"#[\da-f]{6}$"):
                                 break validField
                         of "ecl":
-                            const validEyeColors = toHashSet(["amb", "blu", "brn", "gry", "grn", "hzl", "oth"])
-                            
+                            const validEyeColors = toHashSet(["amb", "blu",
+                                    "brn", "gry", "grn", "hzl", "oth"])
+
                             if value notin validEyeColors:
                                 break validField
                         of "pid":
@@ -65,7 +61,7 @@ proc solvePartTwo(): int =
                                 break validField
                         else:
                             discard
-                
+
                 inc result
 
 echo solvePartOne()

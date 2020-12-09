@@ -1,9 +1,8 @@
-import strscans
-import strutils
+import strscans, strutils
 
 proc solvePartOne(): int =
     for line in lines("input.txt"):
-        var 
+        var
             lower, upper: int
             letter, password: string
 
@@ -18,7 +17,8 @@ proc solvePartTwo(): int =
             letter, password: string
 
         if line.scanf("$i-$i $w: $w", first, second, letter, password):
-            if (password[first - 1] == letter[0]) xor (password[second - 1] == letter[0]):
+            if (password[first - 1] == letter[0]) xor (password[second - 1] ==
+                    letter[0]):
                 inc result
 
 echo solvePartOne()

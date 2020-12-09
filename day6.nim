@@ -1,5 +1,4 @@
-import sequtils
-import strutils
+import sequtils, strutils
 
 func toCharSet[T](s: T): set[char] =
     for c in s: result.incl(c)
@@ -14,7 +13,7 @@ func solvePartTwo(groups: seq[string]): int =
 
         for person in group.splitLines():
             answered = answered * person.toCharSet()
-        
+
         result += answered.len
 
 let groups = readFile("input.txt").split("\n\n")

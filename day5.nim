@@ -16,7 +16,7 @@ func solvePartOne(passes: seq[string]): int =
         let row = locate(0..128, pass[0..6], 'F')
         let col = locate(0..8, pass[7..9], 'L')
         result = max(result, row * 8 + col)
-    
+
 func solvePartTwo(passes: seq[string]): int =
     var seats: array[128, array[8, int]]
 
@@ -24,7 +24,7 @@ func solvePartTwo(passes: seq[string]): int =
         let row = locate(0..128, pass[0..6], 'F')
         let col = locate(0..8, pass[7..9], 'L')
         seats[row][col] = row * 8 + col
-    
+
     var valid = false
 
     for y, row in seats:
