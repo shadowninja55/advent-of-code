@@ -1,2 +1,2 @@
 # aoc-2020
-My attempt at [Advent of Code 2020](https://adventofcode.com) in Nim.
+my attempt at [advent of code 2020](https://adventofcode.com) in nim.
