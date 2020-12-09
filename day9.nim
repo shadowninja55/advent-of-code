@@ -1,16 +1,12 @@
-import deques, intsets, math, sequtils, strutils
+import intsets, sequtils, strutils
 
-proc twoSum(nums: Deque[int], target: int): bool =
-    var seen = initIntSet()
-
+proc twoSum(nums: IntSet, target: int): bool =
     for num in nums:
-        if (target - num) in seen:
+        if (target - num) in nums:
             return true
 
-        seen.incl num
-
 proc solvePartOne(nums: seq[int]): int =
-    var window = toDeque nums[0..24]
+    var window = toIntSet nums[0..24]
 
     for i in 25..nums.high:
         let target = nums[i]
@@ -18,13 +14,13 @@ proc solvePartOne(nums: seq[int]): int =
         if not window.twoSum target:
             return target
 
-        window.popFirst
-        window.addLast target
+        window.excl nums[i - 25]
+        window.incl nums[i]
 
 proc solvePartTwo(nums: seq[int], target: int): int =
     var (sum, start) = (nums[0], 0)
 
-    for i in 1..nums.len:
+    for i in 1..nums.high:
         while sum > target and start < i - 1:
             sum -= nums[start]
             inc start
@@ -33,9 +29,10 @@ proc solvePartTwo(nums: seq[int], target: int): int =
             let window = nums[start..(i - 1)]
             return window.min + window.max
 
-        if i < nums.len:
-            sum += nums[i]
+        sum += nums[i]
 
 let nums = toSeq(lines("input.txt")).map(parseInt)
-echo solvePartOne nums
-echo solvePartTwo(nums, solvePartOne nums)
+
+let target = solvePartOne nums
+echo target
+echo solvePartTwo(nums, target)
