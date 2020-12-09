@@ -1,8 +1,4 @@
-import sequtils
-import strutils
-import intsets
-import deques
-import math
+import deques, intsets, math, sequtils, strutils
 
 proc twoSum(nums: Deque[int], target: int): bool =
     var seen = initIntSet()
