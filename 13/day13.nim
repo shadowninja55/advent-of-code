@@ -39,11 +39,11 @@ proc solvePartTwo(): int =
         var skip = 1
 
         block valid:
-            for diff in 0..buses.high:
-                if (departure + diff) mod buses[diff] != 0:
+            for diff, bus in buses:
+                if (departure + diff) mod bus != 0:
                     break valid
 
-                skip *= buses[diff]
+                skip *= bus
 
             return departure
 
