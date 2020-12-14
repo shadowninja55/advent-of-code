@@ -1,10 +1,11 @@
 import sequtils, std/enumerate, strutils, sugar, tables
 
 proc solvePartOne(): int =
-    let file = open("input.txt", fmRead)
-    defer: file.close
+    let 
+        file = open("input.txt", fmRead)
+        estimate = parseInt file.readLine
 
-    var estimate = parseInt file.readLine
+    defer: file.close
 
     var buses = collect newSeq:
         for bus in file.readLine.split ',':
@@ -22,10 +23,10 @@ proc solvePartOne(): int =
 
 proc solvePartTwo(): int =
     let file = open("input.txt", fmRead)
-    defer: file.close()
+    defer: file.close
     discard file.readLine
 
-    var buses: seq[int]
+    var buses = newSeq[int]()
 
     for bus in file.readLine.split ',':
         if bus == "x":
