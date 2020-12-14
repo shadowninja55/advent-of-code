@@ -15,9 +15,6 @@ proc solvePartTwo: int =
         while mass > 0:
             mass = mass div 3 - 2
             result += mass.clamp(0, int.high)
-            echo mass
-        
-        echo ""
 
 echo solvePartOne()
 echo solvePartTwo()
