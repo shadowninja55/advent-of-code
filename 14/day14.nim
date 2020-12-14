@@ -58,7 +58,7 @@ proc solvePartTwo: int =
                 for i, bit in bits:
                     if bit == '0':
                         child.excl spins[i]
-                    elif bit == '1':
+                    else:
                         child.incl spins[i]
 
                 mem[cast[int](child)] = parseInt $2
