@@ -51,7 +51,7 @@ proc solvePartTwo: int =
             for i in ones:
                 index.incl i
 
-            for num in 0..<pow(2f, spins.len.float32).int:
+            for num in 0..<(1 shl spins.len):
                 let bits = num.toBin spins.len
                 var child = index
 
