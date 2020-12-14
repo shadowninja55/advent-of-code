@@ -5,7 +5,7 @@ func locate(bounds: Slice[int], pass: string, letter: char): int =
     var upper = bounds.b
 
     for c in pass:
-        let mid = (upper - result) div 2
+        let mid = (upper - result) shl 1
         if c == letter:
             upper -= mid
         else:
