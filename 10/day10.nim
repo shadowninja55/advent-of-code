@@ -2,7 +2,7 @@ import algorithm, sequtils, strutils, tables
 
 proc solvePartOne(adapters: seq[int]): int =
     var
-        nums: CountTable[int]
+        nums = initCountTable[int]()
         last = adapters[0]
 
     for adapter in adapters[1..^1]:
