@@ -6,7 +6,7 @@ proc solvePartOne(adapters: seq[int]): int =
         last = adapters[0]
 
     for adapter in adapters[1..^1]:
-        nums.inc(adapter - last)
+        nums.inc adapter - last
         last = adapter
 
     nums[1] * nums[3]
