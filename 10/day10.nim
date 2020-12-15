@@ -12,7 +12,7 @@ proc solvePartOne(adapters: seq[int]): int =
     nums[1] * nums[3]
 
 proc solvePartTwo(adapters: seq[int]): int =
-    var poss = newCountTable [0]
+    var poss = [0].toCountTable
 
     for adapter in adapters[1..^1]:
         for i in 1..3:
