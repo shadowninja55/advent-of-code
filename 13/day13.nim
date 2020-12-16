@@ -3,23 +3,26 @@ import sequtils, std/enumerate, strutils, sugar, tables
 proc solvePartOne(): int =
     let 
         file = open("input.txt", fmRead)
-        estimate = parseInt file.readLine
+        start = parseInt file.readLine
 
     defer: file.close
 
     var buses = collect newSeq:
         for bus in file.readLine.split ',':
             if bus != "x":
-                parseInt bus
+                bus.parseInt
 
-    var departure = estimate
+    var lowestWait = int.high
+    var lowestBus = 0
 
-    while true:
-        for bus in buses:
-            if departure mod bus == 0:
-                return (departure - estimate) * bus
+    for bus in buses:
+        let wait = bus - (start mod bus)
 
-        inc departure
+        if wait < lowestWait:
+            lowestWait = wait
+            lowestBus = bus
+    
+    lowestWait * lowestBus
 
 proc solvePartTwo(): int =
     let file = open("input.txt", fmRead)
