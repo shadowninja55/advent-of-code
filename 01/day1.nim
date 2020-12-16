@@ -1,7 +1,7 @@
-import intsets, sequtils, strutils
+import sequtils, strutils
 
 proc solvePartOne(nums: seq[int], target = 2020): int =
-    var seen = initIntSet()
+    var seen: set[-2020..2020]
 
     for num in nums:
         if (target - num) in seen:
