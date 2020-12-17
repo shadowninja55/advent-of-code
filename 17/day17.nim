@@ -24,12 +24,12 @@ proc solvePartOne: int =
               inc result
 
   # steps loop
-  for _ in 1..6:
+  for step in 1..6:
     var nextCubes = cubes
 
-    for x in -6..13:
-      for y in -6..13:
-        for z in -6..6:
+    for x in -step..(step + 7):
+      for y in -step..(step + 7):
+        for z in -step..step:
           let cube = (x, y, z)
 
           if cube in cubes:
@@ -68,13 +68,13 @@ proc solvePartTwo: int =
                 inc result
 
   # steps loop
-  for _ in 1..6:
+  for step in 1..6:
     var nextCubes = cubes
 
-    for x in -6..13:
-      for y in -6..13:
-        for z in -6..6:
-          for w in -6..6:
+    for x in -step..(step + 7):
+      for y in -step..(step + 7):
+        for z in -step..step:
+          for w in -step..step:
             let cube = (x, y, z, w)
 
             if cube in cubes:
