@@ -1,7 +1,7 @@
 import strutils, sugar
 
 proc solvePartOne(): int =
-    let 
+    let
         file = open("input.txt", fmRead)
         start = parseInt file.readLine
 
@@ -21,7 +21,7 @@ proc solvePartOne(): int =
         if wait < lowestWait:
             lowestWait = wait
             lowestBus = bus
-    
+
     lowestWait * lowestBus
 
 proc solvePartTwo(): int =

@@ -16,8 +16,8 @@ proc parseInput: (RuleMap, Ticket, seq[Ticket]) =
 
         # parsing rules
         rules <- +rule
-        rule <- >+(Lower | " ") * ": " * >Num * "-" * >Num * " or " * >Num *
-                "-" * >Num * "\n":
+        rule <- >+(Lower | " ") * ": " * >Num * "-" * >Num *
+            " or " * >Num * "-" * >Num * "\n":
             ruleMap[$1] = {parseInt($2)..parseInt($3), parseInt($4)..parseInt($5)}
 
         # parsing your ticket

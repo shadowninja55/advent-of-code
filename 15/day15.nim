@@ -1,4 +1,4 @@
-import tables, sugar
+import sugar, tables
 
 proc solvePartOne(target = 2020): int =
     const input = [18, 11, 9, 0, 5, 1]
