@@ -1,4 +1,4 @@
-import sequtils, std/enumerate, strutils, sugar, tables
+import strutils, sugar
 
 proc solvePartOne(): int =
     let 
