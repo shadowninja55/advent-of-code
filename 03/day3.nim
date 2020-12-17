@@ -1,16 +1,13 @@
 import math, sequtils, sugar
 
 let grid = toSeq(lines("input.txt"))
-let (height, width) = (grid.len, grid[0].len)
 
 proc solvePartOne(deltaX, deltaY: int): int =
     var x = 0
 
-    for y in countup(0, height - 1, deltaY):
-        if grid[y][x] == '#':
-            inc result
-
-        x = (x + deltaX) mod width
+    for y in countup(0, grid.high, deltaY):
+        result += int(grid[y][x] == '#')
+        x = (x + deltaX) mod grid[0].len
 
 proc solvePartTwo(deltas: varargs[(int, int)]): int =
     prod deltas.map(d => solvePartOne(d[0], d[1]))

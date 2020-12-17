@@ -28,7 +28,7 @@ proc parseInput: (RuleMap, Ticket, seq[Ticket]) =
         tickets <- "nearby tickets:\n" * +ticket
         ticket <- >+(Digit | ",") * "\n":
             let values = ($1).split(',').map(parseInt)
-            tickets.add(values)
+            tickets.add values
 
     assert parser.matchFile("input.txt").ok
 

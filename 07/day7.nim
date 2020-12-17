@@ -9,7 +9,7 @@ proc makeRuleMap(rules: string): RuleMap =
         rules <- *rule
         rule <- >color * " bags contain " * children * "\n":
             ruleMap[$1] = children
-            children.setLen(0)
+            reset children
 
         color <- +Alpha * " " * +Alpha
         children <- "no other bags." | (child * *(", " * child) * ".")
