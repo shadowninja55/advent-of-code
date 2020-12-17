@@ -27,9 +27,9 @@ proc solvePartOne: int =
   for _ in 1..6:
     var nextCubes = cubes
 
-    for x in -25..25:
-      for y in -25..25:
-        for z in -10..10:
+    for x in -6..13:
+      for y in -6..13:
+        for z in -6..6:
           let cube = (x, y, z)
 
           if cube in cubes:
@@ -71,10 +71,10 @@ proc solvePartTwo: int =
   for _ in 1..6:
     var nextCubes = cubes
 
-    for x in -25..25:
-      for y in -25..25:
-        for z in -10..10:
-          for w in -10..10:
+    for x in -6..13:
+      for y in -6..13:
+        for z in -6..6:
+          for w in -6..6:
             let cube = (x, y, z, w)
 
             if cube in cubes:
