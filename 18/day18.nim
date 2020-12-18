@@ -12,7 +12,7 @@ var result: uint64 = 0
 """
 
 proc process(replacements: varargs[(string, string)]): uint64 =
-    # writing to file
+  # writing to file
   var file = open("eval.nim", fmWrite)
   file.write code
 
