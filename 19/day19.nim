@@ -1,7 +1,9 @@
 import re, strutils, sugar, tables
 
+type RuleMap = Table[int, string]
+
 # making rule map
-proc makeRules(input: string): Table[int, string] =
+proc makeRules(input: string): RuleMap =
   collect initTable:
     for line in input.replace("\"", "").splitLines:
       if line =~ re"(\d+)\:(.+)":
@@ -14,7 +16,7 @@ proc isNum(s: string): bool =
     return true
   except ValueError: discard
 
-proc recurse(rules: Table[int, string], n: int): string =
+proc recurse(rules: RuleMap, n: int): string =
   var res = collect newSeq:
     for rule in rules[n].split('|'):
       var parsed = ""
@@ -33,7 +35,7 @@ proc recurse(rules: Table[int, string], n: int): string =
     return "(?:" & result & ")"
 
 # solving
-proc solve(input: string, rules: Table[int, string]): int =
+proc solve(input: string, rules: RuleMap): int =
   for line in input.findAll(re"[a|b]+\n"):
     if line =~ rex(rules.recurse(0) & "\n$"):
       inc result
