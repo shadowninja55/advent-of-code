@@ -29,7 +29,7 @@ proc recurse(rules: RuleMap, n: int): string =
       
       parsed
   
-  result = res.join("|")
+  result = res.join "|"
 
   if '|' in result:
     return "(?:" & result & ")"
@@ -48,6 +48,7 @@ proc solvePartOne: int =
 
   input.solve rules
 
+# solving part two
 proc solvePartTwo: int =
   let input = readFile "input.txt"
   var rules = makeRules input
@@ -64,6 +65,6 @@ proc solvePartTwo: int =
 
   input.solve rules
 
-# solving part two
+# wrapping up
 echo solvePartOne()
 echo solvePartTwo()
