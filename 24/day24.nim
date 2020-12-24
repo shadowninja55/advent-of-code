@@ -38,28 +38,40 @@ proc solvePartOne: int =
 
 # part two
 proc solvePartTwo: int =
-  var tiles = flipTiles()
+  var 
+    tiles = flipTiles()
+    bounds = (0..0, 0..0)
 
-  proc adjacent(tile: Tile): int =
+  iterator adjacent(tile: Tile): Tile =
     for direction in directions.values:
-      if (tile + direction) in tiles:
+      yield (tile + direction)
+  
+  proc adjacentBlack(tile: Tile): int =
+    for neighbour in tile.adjacent:
+      if neighbour in tiles:
         inc result
 
   for _ in 1..100:
-    var next = tiles
-
-    for x in -125..125:
-      for y in -125..125:
-        let tile = (x, y).Tile
-
-        # tile is black
-        if tile in tiles:
-          if tile.adjacent in {0, 3..6}:
-            next.excl tile
-        else: # tile is white
-          if tile.adjacent == 2:
-            next.incl tile
+    var 
+      next = tiles
+      check: HashSet[Tile]
     
+    # adding tiles to check
+    for tile in tiles:
+      check.incl tile
+
+      for neighbour in tile.adjacent:
+        check.incl neighbour
+    
+    # iterating tiles to check
+    for tile in check:
+      if tile in tiles:
+        if tile.adjacentBlack in {0, 3..6}:
+          next.excl tile
+      else:
+        if tile.adjacentBlack == 2:
+          next.incl tile
+
     tiles = next
 
   tiles.len
