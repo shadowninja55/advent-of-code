@@ -1,10 +1,10 @@
 import npeg, sets, sequtils, strutils, algorithm, sugar, tables, math
 
-type Piece = seq[string]
-
-type Puzzle = object
-  edges: Table[int, HashSet[string]]
-  pieces: Table[int, Piece]
+type 
+  Piece = seq[string]
+  Puzzle = object
+    edges: Table[int, HashSet[string]]
+    pieces: Table[int, Piece]
 
 proc loadPuzzle(): Puzzle =
   proc edges(piece: Piece): HashSet[string] =

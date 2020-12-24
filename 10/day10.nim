@@ -20,7 +20,7 @@ proc solvePartTwo(adapters: seq[int]): int =
 
     poss[adapters.max]
 
-var adapters = toSeq(lines("input.txt")).map(parseInt)
+var adapters = toSeq(lines("input.txt")).map parseInt
 adapters &= @[0, adapters.max + 3]
 adapters.sort
 
