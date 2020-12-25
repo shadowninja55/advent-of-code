@@ -1,42 +1,25 @@
-import npeg, sets, sequtils, strutils, algorithm, sugar, tables, math
+import sets, sequtils, strutils, algorithm, sugar, tables, math
 
 type 
-  Piece = seq[string]
+  Piece = seq[seq[char]]
   Puzzle = object
-    edges: Table[int, HashSet[string]]
+    edges: Table[int, HashSet[seq[char]]]
     pieces: Table[int, Piece]
 
 proc loadPuzzle(): Puzzle =
-  proc edges(piece: Piece): HashSet[string] =
-    # top and bottom
-    for y in [0, piece.high]:
-      result.incl piece[y]
-      result.incl piece[y].reversed.join("")
-    
-    # sides
-    for x in [0, piece[0].high]:
-      var edge = ""
-
-      for y in 0..piece.high:
-        edge.add piece[y][x]
-      
+  proc getEdges(piece: Piece): HashSet[seq[char]] =
+    for edge in [piece[0], piece[^1], piece.mapIt(it[0]), piece.mapIt(it[^1])]:
       result.incl edge
-      result.incl edge.reversed.join("")
+      result.incl edge.reversed
 
-  var id: int
-
-  let parser = peg("lines", puzzle: Puzzle):
-    lines <- +(id * "\n" * tile * "\n")
-
-    id <- "Tile " * >+Digit * ":":
-      id = parseInt $1
+  for rawPiece in readFile("input.txt").split("\n\n"):
+    let 
+      rawLines = rawPiece.splitLines()
+      id = rawLines[0][5..^2].parseInt()
+      piece = rawLines[1..^1].mapIt(it.toSeq())
     
-    tile <- ({'.', '#'}[10] * "\n")[10]:
-      let piece = ($0).split('\n')[0..^2]
-      puzzle.edges[id] = piece.edges
-      puzzle.pieces[id] = piece
-
-  assert parser.matchFile("input.txt", result).ok
+    result.pieces[id] = piece
+    result.edges[id] = piece.getEdges()
 
 proc getCorners(puzzle: Puzzle): seq[int] =
   for id, edges in puzzle.edges:
@@ -54,8 +37,20 @@ proc getCorners(puzzle: Puzzle): seq[int] =
 proc solvePartOne: int =
   prod loadPuzzle().getCorners
 
-proc solvePartTwo: int =
-  # INCOMPLETE
-  discard
+proc solvePartTwo: seq[int] =
+  ## this function simply provides some estimates
+  let sampleFilled = readFile("sample.txt").count('#') + readFile("sample.txt").count('O')
+  var inputFilled = 0
+
+  for piece in loadPuzzle().pieces.values:
+    let shrunk = piece[1..^2].mapIt(it[1..^2])
+    for row in shrunk:
+      inputFilled += row.count('#')
+  
+  let estimate = ((2.float * inputFilled.float) / sampleFilled.float).int
+  
+  for monsters in (estimate - 2)..(estimate + 2):
+    result.add(inputFilled - (monsters * 15))
 
 echo solvePartOne()
+echo solvePartTwo()
