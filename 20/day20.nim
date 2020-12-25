@@ -39,15 +39,15 @@ proc solvePartOne: int =
 
 proc solvePartTwo: seq[int] =
   ## this function simply provides some estimates
-  let sampleFilled = readFile("sample.txt").count('#') + readFile("sample.txt").count('O')
+  let sampleFilled = readFile("sample.txt").count('#') + 
+    readFile("sample.txt").count('O')
   var inputFilled = 0
 
   for piece in loadPuzzle().pieces.values:
-    let shrunk = piece[1..^2].mapIt(it[1..^2])
-    for row in shrunk:
+    for row in piece[1..^2].mapIt(it[1..^2]):
       inputFilled += row.count('#')
   
-  let estimate = ((2.float * inputFilled.float) / sampleFilled.float).int
+  let estimate = (2 * inputFilled) div sampleFilled
   
   for monsters in (estimate - 2)..(estimate + 2):
     result.add(inputFilled - (monsters * 15))
