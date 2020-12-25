@@ -38,9 +38,7 @@ proc solvePartOne: int =
 
 # part two
 proc solvePartTwo: int =
-  var 
-    tiles = flipTiles()
-    bounds = (0..0, 0..0)
+  var tiles = flipTiles()
 
   iterator adjacent(tile: Tile): Tile =
     for direction in directions.values:
