@@ -1,2 +1,2 @@
 # advent-of-code
-random aoc problems
+advent of code solutions
