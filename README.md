@@ -9,3 +9,4 @@ advent of code solutions
 - 1: c
 - 2: nim
 - 3: raku
+- 4: c++
