@@ -6,5 +6,6 @@ advent of code solutions
 2022: 1-7, 9-11, 13 in k
 
 2023: 1-? in
-- 1: C
+- 1: c
 - 2: nim
+- 3: raku
