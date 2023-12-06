@@ -10,3 +10,5 @@ advent of code solutions
 - 2: nim
 - 3: raku
 - 4: c++
+- 5: ?
+- 6: k
