@@ -12,3 +12,5 @@ advent of code solutions
 - 4: c++
 - 5: ?
 - 6: k
+
+2024: 1-? in k
