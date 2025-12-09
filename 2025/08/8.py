@@ -1,8 +1,9 @@
-import numpy as np
+from itertools import combinations
 from scipy.cluster.hierarchy import DisjointSet
+import numpy as np
 
 P = np.loadtxt("i.txt", int, delimiter=",")
-D = sorted((np.dot(w := u - v, w), tuple(u), tuple(v)) for i, u in enumerate(P) for v in P[i+1:])
+D = sorted((np.dot(w := u - v, w), tuple(u), tuple(v)) for u, v in combinations(P, 2))
 C = DisjointSet(map(tuple, P))
 
 for i, (_, u, v) in enumerate(D):
